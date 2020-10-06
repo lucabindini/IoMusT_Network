@@ -1,0 +1,8 @@
+<config>
+	<interface hosts="smartInst*" address="10.1.1.x" netmask="255.255.255.x"/>
+	<interface hosts="server" address="10.2.1.x" netmask="255.255.255.x"/>
+	<interface hosts="backbone" towards="routerSI" address="10.1.2.x" netmask="255.255.255.x"/>
+	<interface hosts="backbonerouter" towards="routerServer" address="10.2.2.x" netmask="255.255.255.x"/>
+	<interface hosts="*" address="10.x.x.x" netmask="255.255.255.x"/>
+	<wireless hosts="smartInst* accessPointSI"/>
+</config>
