@@ -5,21 +5,19 @@
 
 using namespace omnetpp;
 
-class StandardSmartInstrumentApp: public inet::UdpBasicApp {
+class PeerSmartInstrumentApp: public inet::UdpBasicApp {
 
 protected:
     std::string name;
     std::string msg;
     int BPM;
-    int nominalBPM;
     int correctionLatency;
 
     virtual void initialize(int stage) override {
         UdpBasicApp::initialize(stage);
         if(firstCall) {
             name = std::string(packetName);
-            acquireNominalBPM();
-            BPM = nominalBPM;
+            initBPM();
             firstCall = false;
         }
     }
@@ -32,15 +30,18 @@ protected:
     virtual void processPacket(inet::Packet *pk) override {
             std::vector<std::string> result = split(pk->getName(), '-');
             UdpBasicApp::processPacket(pk);
-            BPM -= (std::stoi(result.at(1))-nominalBPM);
-            correctionLatency = int(omnetpp::simTime().dbl()*1000) - std::stoi(result.at(2));
-            std::cout<<name<<" musicista principiante ha avuto un BPM medio di "<<result.at(1)<<" BPM attuali "<<BPM<<" con una latenza dal server di "<<correctionLatency<< std::endl;
+            if(result.at(1) == "sub")
+                BPM -= std::stoi(result.at(2));
+            else
+                BPM += std::stoi(result.at(2));
+            correctionLatency = int(omnetpp::simTime().dbl()*1000) - std::stoi(result.at(4));
+            std::cout<<name<<" ha avuto un BPM medio di: "<<result.at(3)<<" BPM attuali: "<< BPM <<" con una latenza dal nodo sink di: " <<correctionLatency<< std::endl;
         }
 
 private:
     bool firstCall = true;
 
-    void acquireNominalBPM() {
+    void initBPM() {
         std::string line;
         std::ifstream myfile ("nominal_BPM.txt");
         if (myfile.is_open()) {
@@ -49,7 +50,7 @@ private:
         }
         else
             std::cerr << "Unable to open file" << std::endl;
-        nominalBPM = std::stoi(line);
+        BPM = std::stoi(line);
     }
 
     void buildPacket() {
@@ -63,6 +64,7 @@ private:
 
     void acquireBPMFromSI() {
         int a = (rand() % 1000 + 1);
+        //std::cout<<a<<std::endl;
         if(a <= 16) {
             BPM++;
         }
@@ -80,4 +82,4 @@ private:
         }
 };
 
-Define_Module(StandardSmartInstrumentApp); //associa la classe al modulo
+Define_Module(PeerSmartInstrumentApp); //associa la classe al modulo

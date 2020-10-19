@@ -27,10 +27,9 @@ protected:
     }
 
     virtual void processPacket(inet::Packet *pk) override {
-            //std::cout << name <<" riceve un pacchetto ricevuto dal server: " + std::string(pk->getName()) << std::endl;
             std::vector<std::string> result = split(pk->getName(), '-');
             correctionLatency = int(omnetpp::simTime().dbl()*1000) - std::stoi(result.at(2));
-            std::cerr<<name<<" musicista professionista ha avuto un BPM medio di: "<<result.at(1)<<" rispetto al BPM di riferimento di: "<<nominalBPM<<" con una latenza dal server di: "<<correctionLatency<<std::endl;
+            std::cout<<name<<" musicista professionista ha avuto un BPM medio di "<<result.at(1)<<" rispetto al BPM di riferimento di "<<nominalBPM<<" con una latenza dal server di "<<correctionLatency<<std::endl;
             UdpBasicApp::processPacket(pk);
         }
 
@@ -59,7 +58,7 @@ private:
     }
 
     void acquireBPMFromSI() {
-        BPM = (nominalBPM-10) + (rand() % static_cast<int>((nominalBPM+10) - (nominalBPM-10) + 1));
+        BPM = (nominalBPM-3) + (rand() % static_cast<int>((nominalBPM+3) - (nominalBPM-3) + 1));
     }
 
     std::vector<std::string> split(const char *str, char c) {

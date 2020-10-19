@@ -36,43 +36,43 @@ network networkStructureP2P
         }
 
         smartInst1: WirelessHost {
-            @display("p=639.327,298.792");
+            @display("p=683.07697,280.76923");
         }
 
         smartInst2: WirelessHost {
-            @display("p=652.50903,206.518");
+            @display("p=713.07697,216.92308");
         }
 
         smartInst3: WirelessHost {
-            @display("p=738.192,206.518");
+            @display("p=779.2308,191.53847");
         }
 
         smartInst4: WirelessHost {
-            @display("p=909.558,226.291");
+            @display("p=848.46155,206.92308");
         }
 
         smartInst5: WirelessHost {
-            @display("p=909.558,331.747");
+            @display("p=896.1539,260");
         }
 
         smartInst6: WirelessHost {
-            @display("p=823.875,206.518");
+            @display("p=900.7693,326.15387");
         }
 
         smartInst7: WirelessHost {
-            @display("p=725.01,404.24802");
+            @display("p=843.07697,377.69232");
         }
 
         smartInst8: WirelessHost {
-            @display("p=823.875,421.824");
+            @display("p=778.46155,387.69232");
         }
 
         smartInst9: WirelessHost {
-            @display("p=909.558,421.824");
+            @display("p=720,377.69232");
         }
 
         smartInst10: WirelessHost {
-            @display("p=615.16003,404.24802");
+            @display("p=683.07697,333.07693");
         }
 
         visualizer: IntegratedCanvasVisualizer {
@@ -80,7 +80,7 @@ network networkStructureP2P
         }
 
         accessPointSI: AccessPoint {
-            @display("p=788.723,296.595");
+            @display("p=795.38464,298.46155");
         }
 
         radioMedium: Ieee80211ScalarRadioMedium {
